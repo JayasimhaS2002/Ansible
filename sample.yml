@@ -1,4 +1,4 @@
-- hosts: windows
+- hosts: 192.168.29.72
   gather_facts: true
   tasks:
   - name: create directory
