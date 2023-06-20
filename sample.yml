@@ -9,13 +9,6 @@
       register: firefox_result
       changed_when: "'rm' in firefox_result.stdout"
 
-    - name: Erase saved credentials on Chrome
-      become: true
-      shell: |
-        rm -rf ~/.config/google-chrome/Default/Login\ Data ~/.config/google-chrome/Default/Secure\ Preferences
-      register: chrome_result
-      changed_when: "'rm' in chrome_result.stdout"
-
     - name: Print result
       debug:
-        msg: "Saved credentials erased: Firefox={{ firefox_result.changed }} Chrome={{ chrome_result.changed }}"
+        msg: "Saved credentials erased: Firefox={{ firefox_result.changed }}"
