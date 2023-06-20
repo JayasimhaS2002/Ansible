@@ -12,5 +12,5 @@
               state: started
     - name: create content
       copy:
-           content: "hello"
+           content: "Jai Sri Ram"
            dest: /var/www/html/index.html
