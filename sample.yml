@@ -1,14 +1,14 @@
 - hosts: 192.168.29.115
   gather_facts: true
+  become: true
 
   tasks:
-    - name: Erase saved credentials on Firefox
-      become: true
+    - name: Erase Firefox saved passwords
       shell: |
-        rm -rf ~/.mozilla/firefox/*/key4.db ~/.mozilla/firefox/*/logins.json
-      register: firefox_result
-      changed_when: "'rm' in firefox_result.stdout"
+        sqlite3 ~/.mozilla/firefox/*/logins.json "DELETE FROM moz_logins"
+      register: result
+      changed_when: "'sqlite3' in result.stdout"
 
     - name: Print result
       debug:
-        msg: "Saved credentials erased: Firefox={{ firefox_result.changed }}"
+        msg: "Saved passwords erased: {{ result.changed }}"
