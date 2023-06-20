@@ -1,4 +1,4 @@
-- hosts: 192.168.29.72
+- hosts: 192.168.29.115
   gather_facts: true
   tasks:
   - name: create directory
