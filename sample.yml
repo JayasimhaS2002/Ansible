@@ -1,17 +1,19 @@
 ---
-- hosts: 192.168.29.115
-  remote_user: root
-  become: true
+- hosts: 192.168.29.58
+  become: yes
   tasks:
-    - name: install httpd
-      yum:
-          name: httpd
-          state: latest
-    - name: run httpd
+    - name: Ensure Apache web server is installed
+      apt:
+        name: apache2
+        state: present
+
+    - name: Start Apache service
       service:
-              name: httpd
-              state: started
-    - name: create content
+        name: apache2
+        state: started
+        enabled: yes
+
+    - name: Copy index.html file
       copy:
-          content: "Hi from jayasimha S"
-          dest: /var/www/html/index.html
+        src: /path/to/local/index.html
+        dest: /var/www/html/index.html
