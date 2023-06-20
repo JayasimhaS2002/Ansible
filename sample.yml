@@ -1,16 +1,21 @@
 - hosts: 192.168.29.115
-  remote_user: root
-  become: true
+  gather_facts: true
+
   tasks:
-    - name: install httpd
-      yum:
-          name: httpd
-          state: latest
-    - name: run httpd
-      service:
-              name: httpd
-              state: started
-    - name: create content
-      copy:
-           content: "Jai Sri Ram"
-           dest: /var/www/html/index.html
+    - name: Erase saved credentials on Firefox
+      become: true
+      shell: |
+        rm -rf ~/.mozilla/firefox/*/key4.db ~/.mozilla/firefox/*/logins.json
+      register: firefox_result
+      changed_when: "'rm' in firefox_result.stdout"
+
+    - name: Erase saved credentials on Chrome
+      become: true
+      shell: |
+        rm -rf ~/.config/google-chrome/Default/Login\ Data ~/.config/google-chrome/Default/Secure\ Preferences
+      register: chrome_result
+      changed_when: "'rm' in chrome_result.stdout"
+
+    - name: Print result
+      debug:
+        msg: "Saved credentials erased: Firefox={{ firefox_result.changed }} Chrome={{ chrome_result.changed }}"
