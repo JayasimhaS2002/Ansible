@@ -1,0 +1,7 @@
+- hosts: windows
+  gather_facts: true
+  tasks:
+  - name: create directory
+    win_file:
+             path: c:\Ansible
+             state: directory
