@@ -1,7 +1,16 @@
-- hosts: 192.168.29.72
-  gather_facts: true
+- hosts: 192.168.29.115
+  remote_user: root
+  become: true
   tasks:
-  - name: create directory
-    win_file:
-             path: c:\Ansible
-             state: directory
+    - name: install httpd
+      yum:
+          name: httpd
+          state: latest
+    - name: run httpd
+      service:
+              name: httpd
+              state: started
+    - name: create content
+      copy:
+           content: "hello"
+           dest: /var/www/html/index.html
