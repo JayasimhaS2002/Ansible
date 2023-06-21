@@ -4,6 +4,6 @@
 
   tasks:
     - name: Clear Firefox credentials
-      shell: "rm -rf ~/.mozilla/firefox/x7sglt2r.default-default/logins.json"
-      shell: "rm -rf ~/.mozilla/firefox/x7sglt2r.default-default/logins-backup.json"
-      shell: "rm -rf ~/.mozilla/firefox/x7sglt2r.default-default/key4.db"
+      shell: "rm ~/.mozilla/firefox/x7sglt2r.default-default/logins.json"
+      shell: "rm ~/.mozilla/firefox/x7sglt2r.default-default/logins-backup.json"
+      shell: "rm ~/.mozilla/firefox/x7sglt2r.default-default/key4.db"
