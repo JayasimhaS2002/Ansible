@@ -8,7 +8,6 @@
     - name: Get package updates
       command: yum check-update
       register: package_updates
-      become: true
       ignore: yes
 
     - name: Display package update details
