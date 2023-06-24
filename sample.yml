@@ -2,17 +2,11 @@
 #- name: Display package update details
 - hosts: 192.168.0.111
   gather_facts: true
+  become: true
 
   tasks:
-    - name: Update package cache
-      apt:
-        update_cache: yes
-      become: true
-
-    - name: Get available package updates
-      apt:
-        upgrade: "dist"
-        simulate: yes
+    - name: Get package updates
+      command: yum check-update
       register: package_updates
       become: true
 
