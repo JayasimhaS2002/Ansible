@@ -9,6 +9,7 @@
       command: yum check-update
       register: package_updates
       become: true
+      ignore_errors: yes
 
     - name: Display package update details
       debug:
