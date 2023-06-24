@@ -1,9 +1,21 @@
-- hosts: 192.168.29.115
+#---
+#- name: Display package update details
+- hosts: 192.168.0.111
   gather_facts: true
-  become: true
 
   tasks:
-    - name: Clear Firefox credentials
-      shell: "rm ~/.mozilla/firefox/x7sglt2r.default-default/logins.json"
-      shell: "rm ~/.mozilla/firefox/x7sglt2r.default-default/logins-backup.json"
-      shell: "rm ~/.mozilla/firefox/x7sglt2r.default-default/key4.db"
+    - name: Update package cache
+      apt:
+        update_cache: yes
+      become: true
+
+    - name: Get available package updates
+      apt:
+        upgrade: "dist"
+        simulate: yes
+      register: package_updates
+      become: true
+
+    - name: Display package update details
+      debug:
+        msg: "{{ package_updates.stdout_lines }}"
