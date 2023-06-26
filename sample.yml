@@ -1,7 +1,7 @@
 #---
 #- name: check browser version and update browser
 - hosts: 192.168.29.115
-  gather_facts: true
+  gather_facts: false
   become: true
 
   tasks:
