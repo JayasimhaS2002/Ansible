@@ -1,16 +1,29 @@
 #---
-#- name: Display package update details
-- hosts: 192.168.0.111
+#- name: check browser version and update browser
+- hosts: 192.168.29.115
   gather_facts: true
   become: true
 
   tasks:
-    - name: Get package updates
-      command: yum check-update
+    - name: check chrome version
+      command: google-chrome-stable --version
       register: package_updates
       become: true
-      ignore_errors: yes
 
-    - name: Display package update details
+    - name: Display chrome version
       debug:
         msg: "{{ package_updates.stdout_lines }}"
+        
+    - name: check firefox version
+      command: firefox --version
+      register: package1_updates
+      become: true
+      
+    - name: Display firefox version
+      debug:
+        msg: "{{ package1_updates.stdout_lines }}"
+        
+    - name: upgrade browsers to latest version
+      command: yum upgrade firefox
+      command: yum upgrade google-chrome-stable
+      become: true
